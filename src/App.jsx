@@ -84,7 +84,7 @@ const BoxSides = ({
 
                                         {isSelected && (
                                             <button
-                                                className="mt-2 text-red-500 text-xs underline"
+                                                className="mt-2 text-red-500 text-xs underline uppercase"
                                                 onClick={() =>
                                                     removeCustomSide(
                                                         customType.value.toLowerCase(),
@@ -137,7 +137,7 @@ const BoxSides = ({
 
                                                 {/* Individual Remove */}
                                                 <button
-                                                    className="text-xs text-red-500 underline"
+                                                    className="text-xs text-red-500 underline uppercase"
                                                     onClick={() =>
                                                         handleRemoveSingleLogo(
                                                             item.name,
@@ -152,13 +152,13 @@ const BoxSides = ({
                                             <div>
                                                 {showRemoveAll && (
                                                     <button
-                                                        className="text-xs text-red-700 font-semibold underline"
+                                                        className="text-xs text-red-700 font-semibold underline uppercase"
                                                         onClick={() =>
                                                             handleRemoveLogo(
                                                                 item.name,
                                                             )
                                                         }>
-                                                        Remove All
+                                                        x remove
                                                     </button>
                                                 )}
                                             </div>
@@ -212,11 +212,11 @@ const PriceModal = ({
             <div className="flex gap-4 mt-4">
                 <button
                     onClick={handleBackgroundPrice}
-                    className="cursor-pointer bg-black border text-white p-2 text-sm border-black rounded min-w-[100px]">
+                    className="cursor-pointer bg-black border text-white p-2 text-sm border-black rounded min-w-[100px] uppercase">
                     {`Yes(Add ${backgroundImagePrice} per unit)`}
                 </button>
                 <button
-                    className="cursor-pointer bg-black border text-white p-2 text-sm border-black rounded min-w-[100px]"
+                    className="cursor-pointer bg-black border text-white p-2 text-sm border-black rounded min-w-[100px] uppercase"
                     onClick={handlePriceWithoutBackground}>
                     No
                 </button>
