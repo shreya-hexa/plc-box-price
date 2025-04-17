@@ -75,7 +75,7 @@ const BoxSides = ({
                                                 />
                                             </div>
                                             <h2 className="text-xs">
-                                                {customType.name}
+                                                {customType.name}{' '}
                                                 <span className="font-bold text-lg text-green-500">
                                                     ({box?.price || 0})
                                                 </span>
@@ -84,13 +84,13 @@ const BoxSides = ({
 
                                         {isSelected && (
                                             <button
-                                                className="mt-2 text-red-500 text-xs underline uppercase"
+                                                className="mt-2 text-red-700 text-xs font-bold underline uppercase"
                                                 onClick={() =>
                                                     removeCustomSide(
                                                         customType.value.toLowerCase(),
                                                     )
                                                 }>
-                                                Remove
+                                                x remove
                                             </button>
                                         )}
                                     </div>
@@ -569,15 +569,25 @@ export default function App() {
 
     const uploadLogo = (sideName, price, customSideName) => {
         setUploadedLogos((prev) => {
-            // message.success('Logo uploaded successfully');
-
             if (sideName === 'custom') {
                 const existingCustom = prev.find(
                     (logo) => logo.name === 'custom',
                 );
+
+                // Update all non-custom items to have backgroundImagePrice = 0
+                const updatedPrev = prev.map((logo) => {
+                    if (logo.name !== 'custom') {
+                        return {
+                            ...logo,
+                            backgroundImagePrice: 0,
+                        };
+                    }
+                    return logo;
+                });
+
                 if (existingCustom) {
                     // Update the existing custom object
-                    return prev.map((logo) => {
+                    return updatedPrev.map((logo) => {
                         if (logo.name === 'custom') {
                             return {
                                 ...logo,
@@ -589,6 +599,7 @@ export default function App() {
                                     customSideName === 'pattern'
                                         ? true
                                         : logo.customSideImage,
+                                backgroundImagePrice: price || 0,
                             };
                         }
                         return logo;
@@ -596,7 +607,7 @@ export default function App() {
                 } else {
                     // Add new custom object
                     return [
-                        ...prev,
+                        ...updatedPrev,
                         {
                             id: uuidv4(),
                             name: 'custom',
