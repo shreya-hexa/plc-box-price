@@ -101,7 +101,7 @@ const BoxSides = ({
                                 })}
                             </>
                             <span className="font-bold text-lg text-green-500 absolute left-1/2 -translate-x-1/2 -bottom-7">
-                                (
+                                ($
                                 {uploadedLogos?.length > 0
                                     ? box?.price || 0
                                     : 0}
@@ -119,7 +119,7 @@ const BoxSides = ({
                                 <h2 className="text-xs">
                                     {box.name}{' '}
                                     <span className="font-bold text-lg text-green-500">
-                                        (
+                                        ($
                                         {uploadedLogos.length > 0
                                             ? box?.price || 0
                                             : 0}
@@ -147,7 +147,7 @@ const BoxSides = ({
                                                     {item.name}{' '}
                                                     {item?.backgroundImagePrice !==
                                                         0 &&
-                                                        `(${item.backgroundImagePrice} per unit)`}
+                                                        `($${item.backgroundImagePrice} per unit)`}
                                                 </span>
 
                                                 {/* Individual Remove */}
@@ -228,7 +228,7 @@ const PriceModal = ({
                 <button
                     onClick={handleBackgroundPrice}
                     className="cursor-pointer bg-black border text-white p-2 text-sm border-black rounded min-w-[100px] uppercase">
-                    {`Yes(Add ${backgroundImagePrice} per unit)`}
+                    {`Yes (Add $${backgroundImagePrice} per unit)`}
                 </button>
                 <button
                     className="cursor-pointer bg-black border text-white p-2 text-sm border-black rounded min-w-[100px] uppercase"
@@ -243,7 +243,7 @@ const PriceModal = ({
 const TotalPrice = ({ totalPrice }) => {
     return (
         <div className="fixed bottom-0 right-0 bg-black text-white p-4">
-            <h2>Total price: {totalPrice} per unit</h2>
+            <h2>Total price: ${totalPrice} per unit</h2>
         </div>
     );
 };
