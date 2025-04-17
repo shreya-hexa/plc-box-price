@@ -32,76 +32,82 @@ const BoxSides = ({
     return (
         <div className="flex items-start justify-center gap-8">
             {boxSides.map((box, index) => (
-                <React.Fragment key={index}>
+                <div
+                    key={index}
+                    className="flex gap-8 items-start justify-center relative">
                     {box.value === 'custom' ? (
-                        <>
-                            {box?.type?.map((customType, customIndex) => {
-                                // Fetch the custom logo entry from uploadedLogos
-                                const customLogo = uploadedLogos.find(
-                                    (logo) => logo.name === 'custom',
-                                );
-                                const isSelected =
-                                    customType.value.toLowerCase() === 'color'
-                                        ? customLogo?.customSideColor
-                                        : customType.value.toLowerCase() ===
-                                            'pattern'
-                                          ? customLogo?.customSideImage
-                                          : false;
+                        <React.Fragment>
+                            <>
+                                {box?.type?.map((customType, customIndex) => {
+                                    // Fetch the custom logo entry from uploadedLogos
+                                    const customLogo = uploadedLogos.find(
+                                        (logo) => logo.name === 'custom',
+                                    );
+                                    const isSelected =
+                                        customType.value.toLowerCase() ===
+                                        'color'
+                                            ? customLogo?.customSideColor
+                                            : customType.value.toLowerCase() ===
+                                                'pattern'
+                                              ? customLogo?.customSideImage
+                                              : false;
 
-                                // Use key that reflects change
-                                const keySuffix = customLogo?.customSideColor
-                                    ? 'color'
-                                    : '';
-                                const keySuffix2 = customLogo?.customSideImage
-                                    ? 'pattern'
-                                    : '';
-                                const isLogo = uploadedLogos.length;
+                                    // Use key that reflects change
+                                    const keySuffix =
+                                        customLogo?.customSideColor
+                                            ? 'color'
+                                            : '';
+                                    const keySuffix2 =
+                                        customLogo?.customSideImage
+                                            ? 'pattern'
+                                            : '';
 
-                                return (
-                                    <div
-                                        key={`${customIndex}-${keySuffix}-${keySuffix2}`} // 👈 this helps re-render
-                                        className="flex flex-col items-center relative">
+                                    return (
                                         <div
-                                            className="cursor-pointer border p-4 text-center flex justify-center align-center flex-col gap-2 min-w-[170px] w-[170px] h-[150px]"
-                                            onClick={() =>
-                                                handleAddLogo(
-                                                    box.value,
-                                                    customType?.value,
-                                                )
-                                            }>
-                                            <div className="w-30 h-30 flex items-center justify-center">
-                                                <img
-                                                    src={customType.image}
-                                                    alt={customType.name}
-                                                />
-                                            </div>
-                                            <h2 className="text-xs">
-                                                {customType.name}{' '}
-                                                <span className="font-bold text-lg text-green-500">
-                                                    (
-                                                    {isLogo
-                                                        ? box?.price || 0
-                                                        : 0}
-                                                    )
-                                                </span>
-                                            </h2>
-                                        </div>
-
-                                        {isSelected && (
-                                            <button
-                                                className="mt-2 text-red-700 text-xs font-bold underline uppercase"
+                                            key={`${customIndex}-${keySuffix}-${keySuffix2}`} // 👈 this helps re-render
+                                            className="flex flex-col items-center relative">
+                                            <div
+                                                className="cursor-pointer border p-4 text-center flex justify-center align-center flex-col gap-2 min-w-[170px] w-[170px] h-[150px]"
                                                 onClick={() =>
-                                                    removeCustomSide(
-                                                        customType.value.toLowerCase(),
+                                                    handleAddLogo(
+                                                        box.value,
+                                                        customType?.value,
                                                     )
                                                 }>
-                                                x remove
-                                            </button>
-                                        )}
-                                    </div>
-                                );
-                            })}
-                        </>
+                                                <div className="w-30 h-30 flex items-center justify-center">
+                                                    <img
+                                                        src={customType.image}
+                                                        alt={customType.name}
+                                                    />
+                                                </div>
+                                                <h2 className="text-xs">
+                                                    {customType.name}{' '}
+                                                </h2>
+                                            </div>
+
+                                            {isSelected && (
+                                                <button
+                                                    className="mt-2 text-red-700 text-xs font-bold underline uppercase"
+                                                    onClick={() =>
+                                                        removeCustomSide(
+                                                            customType.value.toLowerCase(),
+                                                        )
+                                                    }>
+                                                    x remove
+                                                </button>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </>
+                            <span className="font-bold text-lg text-green-500 absolute left-1/2 -translate-x-1/2 -bottom-8">
+                                (
+                                {uploadedLogos?.length > 0
+                                    ? box?.price || 0
+                                    : 0}
+                                )
+                            </span>
+                        </React.Fragment>
                     ) : (
                         <div className="flex flex-col items-center relative">
                             <div
@@ -176,7 +182,7 @@ const BoxSides = ({
                                 })}
                         </div>
                     )}
-                </React.Fragment>
+                </div>
             ))}
         </div>
     );
@@ -402,8 +408,8 @@ export default function App() {
                 (isCustomFace &&
                     availableCustomSides > 1 &&
                     addedCustomSide &&
-                    selectedUpgradeOption === 'foil' &&
-                    (selectedUpgradeOption === 'vinyl' ||
+                    (selectedUpgradeOption === 'foil' ||
+                        selectedUpgradeOption === 'vinyl' ||
                         selectedUpgradeOption === 'cmyk'))
             )
                 return;
