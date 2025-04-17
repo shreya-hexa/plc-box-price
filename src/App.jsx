@@ -55,6 +55,7 @@ const BoxSides = ({
                                 const keySuffix2 = customLogo?.customSideImage
                                     ? 'pattern'
                                     : '';
+                                const isLogo = uploadedLogos.length;
 
                                 return (
                                     <div
@@ -77,7 +78,11 @@ const BoxSides = ({
                                             <h2 className="text-xs">
                                                 {customType.name}{' '}
                                                 <span className="font-bold text-lg text-green-500">
-                                                    ({box?.price || 0})
+                                                    (
+                                                    {isLogo
+                                                        ? box?.price || 0
+                                                        : 0}
+                                                    )
                                                 </span>
                                             </h2>
                                         </div>
@@ -108,7 +113,11 @@ const BoxSides = ({
                                 <h2 className="text-xs">
                                     {box.name}{' '}
                                     <span className="font-bold text-lg text-green-500">
-                                        ({box?.price || 0})
+                                        (
+                                        {uploadedLogos.length > 0
+                                            ? box?.price || 0
+                                            : 0}
+                                        )
                                     </span>
                                 </h2>
                             </div>
@@ -390,7 +399,12 @@ export default function App() {
 
             if (
                 (isCustomSide && isCustomFace) ||
-                (isCustomFace && availableCustomSides > 1 && addedCustomSide)
+                (isCustomFace &&
+                    availableCustomSides > 1 &&
+                    addedCustomSide &&
+                    selectedUpgradeOption === 'foil' &&
+                    (selectedUpgradeOption === 'vinyl' ||
+                        selectedUpgradeOption === 'cmyk'))
             )
                 return;
             if (totalPriceInfo.find((item) => item.name === logo.name)) return;
@@ -437,6 +451,10 @@ export default function App() {
     const handleBoxClick = (box) => {
         if (selectedBox !== box.name) {
             setUploadedLogos([]);
+            setIsCustomSide(false);
+            setSelectedUpgradeOption('');
+            setCurrentSide('');
+            setCustomSideName('');
         }
         setSelectedBox(box.name);
         const sides = box.sides;
@@ -490,14 +508,14 @@ export default function App() {
         }
     }, [customSideName]);
 
-    const handleAddLogo = (sideName, customSideName) => {
+    const handleAddLogo = (sideName, customSide) => {
         const isBottomLogo = uploadedLogos.find(
             (logo) => logo.name === 'bottom',
         );
         if (isBottomLogo && sideName === 'bottom') return;
-        if (customSideName) {
+        if (customSide) {
             setIsCustomSide(true);
-            setCustomSideName(customSideName);
+            setCustomSideName(customSide);
             return;
         }
 
