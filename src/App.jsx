@@ -30,7 +30,7 @@ const BoxSides = ({
     uploadedLogos,
 }) => {
     return (
-        <div className="flex items-start justify-center gap-8">
+        <div className="flex items-start justify-center gap-8 flex-wrap">
             {boxSides.map((box, index) => (
                 <div
                     key={index}
@@ -100,7 +100,7 @@ const BoxSides = ({
                                     );
                                 })}
                             </>
-                            <span className="font-bold text-lg text-green-500 absolute left-1/2 -translate-x-1/2 -bottom-8">
+                            <span className="font-bold text-lg text-green-500 absolute left-1/2 -translate-x-1/2 -bottom-7">
                                 (
                                 {uploadedLogos?.length > 0
                                     ? box?.price || 0
@@ -194,7 +194,7 @@ const UpgradeOptions = ({
     setSelectedUpgradeOption,
 }) => {
     return (
-        <div className="flex items-center justify-center gap-8">
+        <div className="flex items-center justify-center gap-8 mb-6">
             {upgradeOptions.map((item, index) => (
                 <div
                     key={index}
@@ -242,7 +242,7 @@ const PriceModal = ({
 
 const TotalPrice = ({ totalPrice }) => {
     return (
-        <div className="fixed bottom-0 right-0 bg-white text-black p-4">
+        <div className="fixed bottom-0 right-0 bg-black text-white p-4">
             <h2>Total price: {totalPrice} per unit</h2>
         </div>
     );
